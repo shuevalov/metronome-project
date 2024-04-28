@@ -6,16 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/test_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="380dp"
+    <NumberPicker
+        android:id="@+id/bpm_picker"
+        android:layout_width="114dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="244dp"
         android:hint="BPM"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </EditText>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/run"
@@ -25,9 +24,7 @@
         android:layout_marginTop="488dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="RUN">
-
-    </Button>
+        android:text="RUN"/>
 
     <Button
         android:id="@+id/minus_ten_button"
@@ -36,7 +33,7 @@
         android:layout_marginStart="@dimen/plus_buttons_side_dimen"
         android:layout_marginTop="@dimen/plus_buttons_up_down_dimen"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bpm_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/bpm_picker"
         android:text="-10"/>
 
     <Button
@@ -45,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/plus_buttons_side_dimen"
         android:layout_marginBottom="@dimen/plus_buttons_up_down_dimen"
-        app:layout_constraintBottom_toTopOf="@+id/bpm_spinner"
+        app:layout_constraintBottom_toTopOf="@+id/bpm_picker"
         app:layout_constraintStart_toStartOf="parent"
         android:text="+10" />
 
@@ -55,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/plus_buttons_side_dimen"
         android:layout_marginBottom="@dimen/plus_buttons_up_down_dimen"
-        app:layout_constraintBottom_toTopOf="@+id/bpm_spinner"
+        app:layout_constraintBottom_toTopOf="@+id/bpm_picker"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="+1"/>
 
@@ -66,7 +63,7 @@
         android:layout_marginTop="@dimen/plus_buttons_up_down_dimen"
         android:layout_marginEnd="@dimen/plus_buttons_side_dimen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bpm_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/bpm_picker"
         android:text="-1"/>
 
     <Button
@@ -90,15 +87,5 @@
         android:text="*"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/bpm_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="254dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

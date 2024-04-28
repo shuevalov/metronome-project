@@ -22,6 +22,7 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
 
     private val MY_TAG: String = "MainMetronomeFragment"
     private var bpm: Long = 0L
+    // bpm into millis
     private var delayBpm: Long = 0L
     private var job: Job? = null
 
@@ -35,6 +36,9 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
 
         setBpm(120L)
         var isTicking: Boolean = false
+
+        // that's wrong i guess but right now i don't know how it should be
+        // TODO: ask teacher
         binding.run.setOnClickListener {
             if (!isTicking) {
                 job = lifecycleScope.launch {
@@ -53,6 +57,18 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
                 }
             }
         }
+
+        binding.bpmPicker.apply {
+            minValue = 1
+            maxValue = 300
+            setOnValueChangedListener { picker, oldVal, newVal ->
+                setBpm(newVal.toLong())
+            }
+            setOnLongClickListener {
+                TODO("input a value, with dialog fragment i guess")
+            }
+
+        }
         binding.minusOneButton.setOnClickListener {
             setBpm(bpm - 1)
         }
@@ -69,11 +85,11 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
         return binding.root
     }
 
-    // if there's no argument - set bpm value from EditText
-    private fun setBpm(input: Long = -1L) {
-        bpm = if (input == -1L) binding.testEditText.text.toString().toLong()
-            else input
+    private fun setBpm(input: Long) {
+        bpm = input
         delayBpm = (60000L / bpm) - 50 // temporary
-        binding.testEditText.setText(bpm.toString())
+        if (bpm.toInt() != binding.bpmPicker.value) {
+            binding.bpmPicker.value = bpm.toInt()
+        }
     }
 }
