@@ -1,8 +1,5 @@
-package ru.shuevalov.metronome_project
+package ru.shuevalov.metronome_project.fragments
 
-import android.content.Context
-import android.media.MediaPlayer
-import android.media.SoundPool
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,19 +11,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.shuevalov.metronome_project.R
 import ru.shuevalov.metronome_project.databinding.MainMetronomeFragmentBinding
+import ru.shuevalov.metronome_project.models.Tick
 
 class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
-
-    class Tick(val context: Context?, val id: Int) {
-        val pool: SoundPool = SoundPool.Builder().build()
-        val sound = pool.load(context, id, 1)
-        val duration: Long = MediaPlayer.create(context, id).duration.toLong()
-
-        fun play() {
-            this.pool.play(sound, 1.0F, 1.0F, 1, 0, 1.0F)
-        }
-    }
 
     private lateinit var binding: MainMetronomeFragmentBinding
     private lateinit var tick: Tick
@@ -44,7 +33,7 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
         binding = MainMetronomeFragmentBinding.inflate(inflater, container, false)
         tick = Tick(context, R.raw.vanilla_tick)
 
-        setBPM(120L)
+        setBpm(120L)
         var isTicking: Boolean = false
         binding.run.setOnClickListener {
             if (!isTicking) {
@@ -65,22 +54,23 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             }
         }
         binding.minusOneButton.setOnClickListener {
-            setBPM(bpm - 1)
+            setBpm(bpm - 1)
         }
         binding.minusTenButton.setOnClickListener {
-            setBPM(bpm - 10)
+            setBpm(bpm - 10)
         }
         binding.plusOneButton.setOnClickListener {
-            setBPM(bpm + 1)
+            setBpm(bpm + 1)
         }
         binding.plusTenButton.setOnClickListener {
-            setBPM(bpm + 10)
+            setBpm(bpm + 10)
         }
 
         return binding.root
     }
 
-    private fun setBPM(input: Long = -1L) {
+    // if there's no argument - set bpm value from EditText
+    private fun setBpm(input: Long = -1L) {
         bpm = if (input == -1L) binding.testEditText.text.toString().toLong()
             else input
         delayBpm = (60000L / bpm) - 50 // temporary

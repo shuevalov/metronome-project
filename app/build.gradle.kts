@@ -39,6 +39,9 @@ android {
 }
 
 dependencies {
+    val preference_version = "1.2.1"
+    val coroutines_version = "1.6.4"
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -50,6 +53,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    // preference library
+    implementation("androidx.preference:preference-ktx:$preference_version")
+
 
 }
