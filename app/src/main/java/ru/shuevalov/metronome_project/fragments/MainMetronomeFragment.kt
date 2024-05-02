@@ -31,21 +31,19 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = MainMetronomeFragmentBinding.inflate(inflater, container, false)
         tick = Tick(context, R.raw.vanilla_tick)
 
-        setBpm(120L)
         var isTicking: Boolean = false
-
-        // that's wrong i guess but right now i don't know how it should be
-        // TODO: ask teacher
+        // ask teacher
         binding.run.setOnClickListener {
             if (!isTicking) {
                 job = lifecycleScope.launch {
                     isTicking = true
                     while (true)
                     {
-                        Log.d(MY_TAG, "L")
+                        Log.d(MY_TAG, "TICK")
                         tick.play()
                         delay(delayBpm)
                     }
@@ -82,12 +80,18 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             setBpm(bpm + 10)
         }
 
+        binding.settingsButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frag_container, SettingsFragment())
+                .commit()
+        }
+        setBpm(60L)
         return binding.root
     }
 
     private fun setBpm(input: Long) {
         bpm = input
-        delayBpm = (60000L / bpm) - 50 // temporary
+        delayBpm = (60000L / bpm) //- 50 // temporary
         if (bpm.toInt() != binding.bpmPicker.value) {
             binding.bpmPicker.value = bpm.toInt()
         }

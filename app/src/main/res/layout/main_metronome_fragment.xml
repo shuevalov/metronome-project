@@ -13,6 +13,7 @@
         android:layout_marginStart="148dp"
         android:layout_marginTop="244dp"
         android:hint="BPM"
+        app:barrierAllowsGoneWidgets="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,7 +84,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
-        style="?android:attr/borderlessButtonStyle"
         android:text="*"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
