@@ -41,8 +41,7 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             if (!isTicking) {
                 job = lifecycleScope.launch {
                     isTicking = true
-                    while (true)
-                    {
+                    while (true) {
                         Log.d(MY_TAG, "TICK")
                         tick.play()
                         delay(delayBpm)
@@ -80,11 +79,7 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             setBpm(bpm + 10)
         }
 
-        binding.settingsButton.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frag_container, SettingsFragment())
-                .commit()
-        }
+
         setBpm(60L)
         return binding.root
     }

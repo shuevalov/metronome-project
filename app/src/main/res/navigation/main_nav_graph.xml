@@ -2,4 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav_graph" />
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/mainMetronomeFragment">
+    <fragment
+        android:id="@+id/mainMetronomeFragment"
+        android:name="ru.shuevalov.metronome_project.fragments.MainMetronomeFragment"
+        android:label="MainMetronomeFragment" >
+        <action
+            android:id="@+id/action_mainMetronomeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ru.shuevalov.metronome_project.fragments.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainMetronomeFragment"
+            app:destination="@id/mainMetronomeFragment" />
+    </fragment>
+</navigation>
