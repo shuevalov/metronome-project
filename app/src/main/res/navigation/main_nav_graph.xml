@@ -19,5 +19,41 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainMetronomeFragment"
             app:destination="@id/mainMetronomeFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_accountSettingsFragment"
+            app:destination="@id/accountSettingsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountSettingsFragment"
+        android:name="ru.shuevalov.metronome_project.fragments.AccountSettingsFragment"
+        android:label="AccountSettingsFragment" >
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="ru.shuevalov.metronome_project.fragments.AuthenticationFragment"
+        android:label="AuthenticationFragment" >
+        <action
+            android:id="@+id/action_authenticationFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="ru.shuevalov.metronome_project.fragments.AuthorizationFragment"
+        android:label="AuthorizationFragment" >
+        <action
+            android:id="@+id/action_authorizationFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment" />
+        <action
+            android:id="@+id/action_authorizationFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 </navigation>

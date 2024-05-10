@@ -9,18 +9,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.shuevalov.metronome_project.R
-import ru.shuevalov.metronome_project.databinding.AuthorizationFragmentBinding
+import ru.shuevalov.metronome_project.databinding.AuthenticationFragmentBinding
 
-class AuthorizationFragment : Fragment() {
-    private lateinit var binding: AuthorizationFragmentBinding
+class AuthenticationFragment : Fragment() {
+    private lateinit var binding: AuthenticationFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = AuthorizationFragmentBinding.inflate(inflater, container, false)
-
-
+        binding = AuthenticationFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,16 +28,11 @@ class AuthorizationFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         toolbar?.apply {
-            setTitle("sign up")
+            setTitle("sign in")
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-//                if (binding.emailEditText.isFocused) binding.emailEditText.clearFocus()
-//                else
-                    findNavController().navigate(R.id.action_authorizationFragment_to_settingsFragment)
+                findNavController().navigate(R.id.action_authenticationFragment_to_authorizationFragment)
             }
-        }
-        binding.alreadyButton.setOnClickListener {
-            findNavController().navigate(R.id.action_authorizationFragment_to_authenticationFragment)
         }
     }
 }

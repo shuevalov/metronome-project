@@ -17,6 +17,7 @@ import ru.shuevalov.metronome_project.MainActivity
 import ru.shuevalov.metronome_project.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
+    private var signed: Boolean = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
@@ -32,5 +33,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.prefs, rootKey)
+        findPreference<Preference>("account")?.setOnPreferenceClickListener {
+            if (!signed) {
+                findNavController().navigate(R.id.action_settingsFragment_to_authorizationFragment)
+            } else {
+                findNavController().navigate(R.id.action_settingsFragment_to_accountSettingsFragment)
+            }
+            true
+        }
     }
 }
