@@ -17,11 +17,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.shuevalov.metronome_project.BpmViewModel
 import ru.shuevalov.metronome_project.R
 import ru.shuevalov.metronome_project.databinding.MainMetronomeFragmentBinding
 import ru.shuevalov.metronome_project.models.Tick
@@ -30,10 +30,9 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
 
     private lateinit var binding: MainMetronomeFragmentBinding
     private lateinit var tick: Tick
-    private lateinit var bpmObserver: Observer<Long>
-    private val bpmVM: BpmViewModel by viewModels()
-    private var job: Job? = null
     private lateinit var prefs: SharedPreferences
+    private var bpm: Long = 60
+    private var job: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,19 +41,21 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
     ): View {
         binding = MainMetronomeFragmentBinding.inflate(inflater, container, false)
         prefs = requireActivity().getSharedPreferences("file", MODE_PRIVATE)
-        bpmVM.currentBpm.value = prefs.getLong("bpm", 30)
+        setBpm(prefs.getLong("bpm", 60))
         tick = Tick(context, R.raw.vanilla_tick)
 
         var isTicking: Boolean = false
-        // ask teacher
+
         binding.run.setOnClickListener {
             if (!isTicking) {
-                job = lifecycleScope.launch {
+                job = lifecycleScope.launch(Dispatchers.IO) {
                     isTicking = true
                     while (true) {
-                        //Log.d(MY_TAG, "TICK")
-                        tick.play()
-                        delay(60000 / bpmVM.currentBpm.value!!)
+                        launch(Dispatchers.Main) {
+                            tick.play()
+                            Log.d("RRR", "TICK")
+                        }
+                        delay(60000 / bpm)
                     }
                 }
             } else {
@@ -70,43 +71,42 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             maxValue = 300
             wrapSelectorWheel = false
 
-            bpmObserver = Observer { newBpm ->
-                if (newBpm.toInt() != value) value = newBpm.toInt()
-            }
-            bpmVM.currentBpm.observeForever(bpmObserver)
-
             setOnValueChangedListener { picker, oldVal, newVal ->
-                bpmVM.currentBpm.value = newVal.toLong()
+                setBpm(newVal.toLong())
             }
             setOnLongClickListener {
                 TODO("input a value, with dialog fragment i guess")
             }
         }
         binding.minusOneButton.setOnClickListener {
-            bpmVM.currentBpm.value!!.plus(1)
+            setBpm(bpm - 1)
         }
         binding.minusTenButton.setOnClickListener {
-            bpmVM.currentBpm.value!!.plus(10)
+            setBpm(bpm - 10)
         }
         binding.plusOneButton.setOnClickListener {
-            bpmVM.currentBpm.value!!.minus(1)
+            setBpm(bpm + 1)
         }
         binding.plusTenButton.setOnClickListener {
-            bpmVM.currentBpm.value!!.minus(10)
+            setBpm(bpm + 10)
         }
         //setBpm(60L)
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        setBpm(prefs.getLong("bpm", 100))
+    }
 
     override fun onPause() {
         super.onPause()
-        prefs.edit().putLong("bpm", bpmVM.currentBpm.value!!).apply()
+        prefs.edit().putLong("bpm", bpm).apply()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        Log.d("RRR", "before set nav")
-
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
@@ -114,9 +114,21 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             setTitle("metronome")
             setNavigationIcon(R.drawable.ic_settings)
             setNavigationOnClickListener {
+                job?.cancel()
                 findNavController().navigate(R.id.action_mainMetronomeFragment_to_settingsFragment)
             }
         }
 //        Log.d("RRR", "after set nav")
+    }
+
+    // set bpm and number picker values
+    private fun setBpm(newValue: Long) {
+        bpm = when {
+            newValue > 300 -> 300
+            newValue < 30 -> 30
+            else -> newValue
+        }
+        if (binding.bpmPicker.value != bpm.toInt())
+            binding.bpmPicker.value = bpm.toInt()
     }
 }
