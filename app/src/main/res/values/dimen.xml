@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="plus_buttons_side_dimen">40dp</dimen>
-    <dimen name="plus_buttons_up_down_dimen">32dp</dimen>
+    <dimen name="plus_buttons_side_dimen">32dp</dimen>
+    <dimen name="plus_buttons_up_down_dimen">-16dp</dimen>
 </resources>

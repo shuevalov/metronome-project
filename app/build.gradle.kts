@@ -1,11 +1,18 @@
+
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("androidx.room")
 }
 
 android {
     namespace = "ru.shuevalov.metronome_project"
     compileSdk = 34
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
 
     defaultConfig {
         applicationId = "ru.shuevalov.metronome_project"
@@ -38,9 +45,11 @@ android {
     }
 }
 
+
 dependencies {
     val preference_version = "1.2.1"
     val coroutines_version = "1.6.4"
+    val room_version = "2.6.1"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -56,6 +65,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
     // preference library
     implementation("androidx.preference:preference-ktx:$preference_version")
+
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 
 
 }

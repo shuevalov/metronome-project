@@ -3,51 +3,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory
-        android:title="settings">
+    <Preference
+        android:key="account"
+        android:title="account"
+        android:summary=""/>
 
-        <Preference
-            android:key="exit"
-            android:title="exit"
-            android:widgetLayout="@layout/exit_settings_button"/>
+    <ListPreference
+        android:key="languages"
+        android:title="language"
+        app:allowDividerAbove="true"
+        app:useSimpleSummaryProvider="true"
+        android:entries="@array/languages_entries"
+        android:entryValues="@array/languages_values"
+        android:defaultValue="1"/>
 
-        <Preference
-            android:key="account"
-            android:title="account"
-            android:summary=""/>
+    <ListPreference
+        android:key="ticks"
+        android:title="tick sound"
+        app:allowDividerAbove="true"
+        app:useSimpleSummaryProvider="true"
+        android:entries="@array/ticks_entries"
+        android:entryValues="@array/ticks_values"
+        android:defaultValue="1"/>
 
-        <ListPreference
-            android:key="languages"
-            android:title="language"
-            app:allowDividerAbove="true"
-            app:useSimpleSummaryProvider="true"
-            android:entries="@array/languages_entries"
-            android:entryValues="@array/languages_values"
-            android:defaultValue="1"/>
+    <ListPreference
+        android:key="change theme"
+        android:title="theme"
+        app:allowDividerAbove="true"
+        app:useSimpleSummaryProvider="true"
+        android:entries="@array/themes_entries"
+        android:entryValues="@array/themes_values"
+        android:defaultValue="1"/>
 
-        <ListPreference
-            android:key="ticks"
-            android:title="tick sound"
-            app:allowDividerAbove="true"
-            app:useSimpleSummaryProvider="true"
-            android:entries="@array/ticks_entries"
-            android:entryValues="@array/ticks_values"
-            android:defaultValue="1"/>
-
-        <ListPreference
-            android:key="change theme"
-            android:title="theme"
-            app:allowDividerAbove="true"
-            app:useSimpleSummaryProvider="true"
-            android:entries="@array/themes_entries"
-            android:entryValues="@array/themes_values"
-            android:defaultValue="1"/>
-
-        <Preference
-            android:key="info"
-            android:title="information"
-            app:allowDividerAbove="true"/>
-
-    </PreferenceCategory>
+    <Preference
+        android:key="info"
+        android:title="information"
+        app:allowDividerAbove="true"/>
 
 </androidx.preference.PreferenceScreen>

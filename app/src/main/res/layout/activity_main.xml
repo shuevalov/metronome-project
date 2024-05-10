@@ -13,22 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:visibility="visible"
+            app:menu="@menu/menu_tool_bar"
             app:navigationIcon="@drawable/ic_settings"
-            app:menu="@menu/menu_tool_bar">
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:title="metronome">
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
+
         android:id="@+id/main_frag_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         app:defaultNavHost="true"
         app:navGraph="@navigation/main_nav_graph">
 
