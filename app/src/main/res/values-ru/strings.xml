@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prefs_language">язык</string>
+    <string name="prefs_tick_sound">звук тика</string>
+    <string name="prefs_change_theme">изменить тему</string>
+    <string name="prefs_information">информация</string>
+    <string name="create_an_account">создать аккаунт</string>
+    <string name="enter_your_email">введите свою электронную почту для регистрации</string>
+    <string name="email">почта</string>
+    <string name="password">пароль</string>
+    <string name="or_continue_with">или авторизуйтесь через</string>
+    <string name="i_already_have_an_account">у меня уже есть аккаунт</string>
+    <string name="sign_in">войти</string>
+    <string name="enter_your_email_and_password">введите почту и пароль</string>
+</resources>

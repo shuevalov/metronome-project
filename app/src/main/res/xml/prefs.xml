@@ -10,7 +10,7 @@
 
     <ListPreference
         android:key="languages"
-        android:title="language"
+        android:title="@string/prefs_language"
         app:allowDividerAbove="true"
         app:useSimpleSummaryProvider="true"
         android:entries="@array/languages_entries"
@@ -19,7 +19,7 @@
 
     <ListPreference
         android:key="ticks"
-        android:title="tick sound"
+        android:title="@string/prefs_tick_sound"
         app:allowDividerAbove="true"
         app:useSimpleSummaryProvider="true"
         android:entries="@array/ticks_entries"
@@ -27,8 +27,8 @@
         android:defaultValue="1"/>
 
     <ListPreference
-        android:key="change theme"
-        android:title="theme"
+        android:key="theme"
+        android:title="@string/prefs_change_theme"
         app:allowDividerAbove="true"
         app:useSimpleSummaryProvider="true"
         android:entries="@array/themes_entries"
@@ -37,7 +37,7 @@
 
     <Preference
         android:key="info"
-        android:title="information"
+        android:title="@string/prefs_information"
         app:allowDividerAbove="true"/>
 
 </androidx.preference.PreferenceScreen>

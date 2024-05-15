@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="enter your email and password"
+        android:text="@string/enter_your_email_and_password"
         android:gravity="center">
     </TextView>
 
@@ -23,7 +23,7 @@
             android:id="@+id/email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="email@domain.com"
+            android:hint="@string/email"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp">
         </com.google.android.material.textfield.TextInputEditText>
@@ -40,7 +40,7 @@
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="password"
+            android:hint="@string/password"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp">
         </com.google.android.material.textfield.TextInputEditText>
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:text="sign in">
+        android:text="@string/sign_in">
     </Button>
 
 </LinearLayout>

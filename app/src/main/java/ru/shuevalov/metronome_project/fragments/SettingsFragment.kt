@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
@@ -33,6 +34,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.prefs, rootKey)
+
+        // account
         findPreference<Preference>("account")?.setOnPreferenceClickListener {
             if (!signed) {
                 findNavController().navigate(R.id.action_settingsFragment_to_authorizationFragment)
@@ -40,6 +43,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 findNavController().navigate(R.id.action_settingsFragment_to_accountSettingsFragment)
             }
             true
+
         }
+        // findPreference<ListPreference>("language")?.setOnPreferenceChangeListener { preference, newValue ->        }
     }
 }

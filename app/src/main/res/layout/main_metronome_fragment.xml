@@ -23,11 +23,11 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="468dp"
-        android:text="RUN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/run"/>
 
     <Button
         android:id="@+id/minus_one_button"
@@ -37,7 +37,7 @@
         android:layout_marginTop="@dimen/plus_buttons_up_down_dimen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bpm_picker"
-        android:text="-1"/>
+        android:text="@string/minus_1"/>
 
     <Button
         android:id="@+id/plus_one_button"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="@dimen/plus_buttons_up_down_dimen"
         app:layout_constraintBottom_toTopOf="@+id/bpm_picker"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="+1" />
+        android:text="@string/plus_1" />
 
     <Button
         android:id="@+id/plus_ten_button"
@@ -57,7 +57,7 @@
         android:layout_marginBottom="@dimen/plus_buttons_up_down_dimen"
         app:layout_constraintBottom_toTopOf="@+id/bpm_picker"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="+10"/>
+        android:text="@string/plus_10"/>
 
     <Button
         android:id="@+id/minus_ten_button"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="@dimen/plus_buttons_side_dimen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bpm_picker"
-        android:text="-10"/>
+        android:text="@string/minus_10"/>
 
     <Button
         android:id="@+id/tap_button"
@@ -77,7 +77,7 @@
         android:layout_marginBottom="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="TAP"/>
+        android:text="@string/tap"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
