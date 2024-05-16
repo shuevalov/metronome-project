@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">metronome-project</string>
+    <string name="minus_1" translatable="false">-1</string>
+    <string name="plus_1" translatable="false">+1</string>
+    <string name="plus_10" translatable="false">+10</string>
+    <string name="minus_10" translatable="false">-10</string>
+    <string name="tap" translatable="false">TAP</string>
+    <string name="run" translatable="false">RUN</string>
+
     <string name="prefs_language">язык</string>
     <string name="prefs_tick_sound">звук тика</string>
     <string name="prefs_change_theme">изменить тему</string>
@@ -12,4 +20,6 @@
     <string name="i_already_have_an_account">у меня уже есть аккаунт</string>
     <string name="sign_in">войти</string>
     <string name="enter_your_email_and_password">введите почту и пароль</string>
+    <string name="settings">настройки</string>
+    <string name="sign_up">создать аккаунт</string>
 </resources>

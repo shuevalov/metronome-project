@@ -1,12 +1,19 @@
 package ru.shuevalov.metronome_project.fragments
 
+import android.app.LocaleManager
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.LocaleManagerCompat
+import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -25,7 +32,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         toolbar?.apply {
-            setTitle("settings")
+            setTitle(context.getString(R.string.settings))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
                 findNavController().navigate(R.id.action_settingsFragment_to_mainMetronomeFragment)
@@ -43,8 +50,37 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 findNavController().navigate(R.id.action_settingsFragment_to_accountSettingsFragment)
             }
             true
-
         }
-        // findPreference<ListPreference>("language")?.setOnPreferenceChangeListener { preference, newValue ->        }
+        findPreference<ListPreference>("languages")?.setOnPreferenceChangeListener { preference, newValue ->
+            AppCompatDelegate.setApplicationLocales(LocaleManagerCompat.getApplicationLocales(requireContext()))
+            when (newValue) {
+                "1"-> {
+                    setLanguage("en")
+                    Log.d("RRR", "english is chosen")
+                }
+                "2" -> {
+                    setLanguage("de")
+                    Log.d("RRR", "german is chosen")
+                }
+                "3" -> {
+                    setLanguage("ru")
+                    Log.d("RRR", "russian is chosen")
+                }
+                else -> {
+                    setLanguage("en")
+                    Log.d("RRR", "nothing is chosen")
+                }
+            }
+            true
+        }
+    }
+
+    private fun setLanguage(newLang: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireContext().getSystemService(LocaleManager::class.java)
+                .applicationLocales = LocaleList.forLanguageTags(newLang)
+        } else {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(newLang))
+        }
     }
 }

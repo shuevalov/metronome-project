@@ -28,7 +28,7 @@ class AuthenticationFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         toolbar?.apply {
-            setTitle("sign in")
+            setTitle(context.getString(R.string.sign_in))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
                 findNavController().navigate(R.id.action_authenticationFragment_to_authorizationFragment)

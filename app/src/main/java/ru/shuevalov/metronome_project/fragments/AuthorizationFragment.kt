@@ -31,7 +31,7 @@ class AuthorizationFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         toolbar?.apply {
-            setTitle("sign up")
+            setTitle(context.getString(R.string.sign_up))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
 //                if (binding.emailEditText.isFocused) binding.emailEditText.clearFocus()

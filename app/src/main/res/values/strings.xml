@@ -19,4 +19,6 @@
     <string name="i_already_have_an_account">i already have an account</string>
     <string name="sign_in">sign in</string>
     <string name="enter_your_email_and_password">enter your email and password</string>
+    <string name="settings">settings</string>
+    <string name="sign_up">sign up</string>
 </resources>
