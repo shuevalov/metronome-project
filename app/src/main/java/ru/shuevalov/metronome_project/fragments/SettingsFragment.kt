@@ -25,6 +25,8 @@ import ru.shuevalov.metronome_project.MainActivity
 import ru.shuevalov.metronome_project.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
+
+    // в шаред префсы надо засунуть наверн и оттуда брать когда залогинен
     private var signed: Boolean = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +37,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setTitle(context.getString(R.string.settings))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                findNavController().navigate(R.id.action_settingsFragment_to_mainMetronomeFragment)
+                activity?.onBackPressedDispatcher?.onBackPressed()
+                //findNavController().navigate(R.id.action_settingsFragment_to_mainMetronomeFragment)
             }
         }
     }
@@ -44,11 +47,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         // account
         findPreference<Preference>("account")?.setOnPreferenceClickListener {
-            if (!signed) {
-                findNavController().navigate(R.id.action_settingsFragment_to_authorizationFragment)
-            } else {
-                findNavController().navigate(R.id.action_settingsFragment_to_accountSettingsFragment)
-            }
+            findNavController().navigate(
+                if (!signed) R.id.action_settingsFragment_to_authorizationFragment
+                else R.id.action_settingsFragment_to_accountSettingsFragment
+            )
             true
         }
         findPreference<ListPreference>("languages")?.setOnPreferenceChangeListener { preference, newValue ->

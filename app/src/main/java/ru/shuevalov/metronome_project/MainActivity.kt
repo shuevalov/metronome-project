@@ -25,25 +25,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_frag_container) as NavHostFragment
-        val navController = navHostFragment.navController
-
-//        supportFragmentManager.beginTransaction().add(R.id.main_frag_container, MainMetronomeFragment()).commit()
-
-//        val appBarConfiguration = AppBarConfiguration(navController.graph)
-//
-//        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-
-//        setSupportActionBar(binding.toolbar)
-
-
-
-//        binding.toolbar.setNavigationOnClickListener {
-//            navController.navigate(R.id.action_mainMetronomeFragment_to_settingsFragment)
-//        }
-        
-//        val navGraph = navController.navInflater.inflate(R.navigation.main_nav_graph)
-
     }
 }
