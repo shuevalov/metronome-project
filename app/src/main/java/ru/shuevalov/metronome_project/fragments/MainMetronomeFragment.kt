@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
@@ -75,7 +78,18 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
                 setBpm(newVal.toLong())
             }
             setOnLongClickListener {
-                TODO("input a value, with dialog fragment i guess")
+                val editText = EditText(activity)
+                MaterialAlertDialogBuilder(requireContext())
+                    .setView(editText)
+                    .setTitle("enter a BPM value")
+                    .setNegativeButton("cancel") { dialog, which ->
+                        dialog.cancel()
+                    }
+                    .setPositiveButton("ok") { dialog, which ->
+                        setBpm(editText.text.toString().toLong())
+                    }
+                    .show()
+                true
             }
         }
         binding.minusOneButton.setOnClickListener {
@@ -128,7 +142,8 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             newValue < 30 -> 30
             else -> newValue
         }
-        if (binding.bpmPicker.value != bpm.toInt())
+        if (binding.bpmPicker.value != bpm.toInt()) {
             binding.bpmPicker.value = bpm.toInt()
+        }
     }
 }

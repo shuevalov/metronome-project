@@ -7,6 +7,7 @@ import android.os.LocaleList
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -21,13 +22,30 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import ru.shuevalov.metronome_project.MainActivity
 import ru.shuevalov.metronome_project.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    // в шаред префсы надо засунуть наверн и оттуда брать когда залогинен
-    private var signed: Boolean = false
+    private var signed = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        signed = Firebase.auth.currentUser != null
+
+        if (signed) {
+            findPreference<Preference>("account")?.title =
+                Firebase.auth.currentUser?.displayName
+        }
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
@@ -38,7 +56,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
-                //findNavController().navigate(R.id.action_settingsFragment_to_mainMetronomeFragment)
             }
         }
     }
@@ -48,8 +65,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // account
         findPreference<Preference>("account")?.setOnPreferenceClickListener {
             findNavController().navigate(
-                if (!signed) R.id.action_settingsFragment_to_authorizationFragment
-                else R.id.action_settingsFragment_to_accountSettingsFragment
+                if (!signed)
+                    R.id.action_settingsFragment_to_authorizationFragment
+                else
+                    R.id.action_settingsFragment_to_accountSettingsFragment
             )
             true
         }

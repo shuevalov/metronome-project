@@ -22,4 +22,5 @@
     <string name="enter_your_email_and_password">введите почту и пароль</string>
     <string name="settings">настройки</string>
     <string name="sign_up">создать аккаунт</string>
+    <string name="account_settings">account settings</string>
 </resources>

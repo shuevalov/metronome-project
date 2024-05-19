@@ -21,4 +21,5 @@
     <string name="enter_your_email_and_password">enter your email and password</string>
     <string name="settings">settings</string>
     <string name="sign_up">sign up</string>
+    <string name="account_settings">account settings</string>
 </resources>

@@ -10,37 +10,36 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import ru.shuevalov.metronome_project.R
+import ru.shuevalov.metronome_project.databinding.ActivityMainBinding
 import ru.shuevalov.metronome_project.databinding.AuthorizationFragmentBinding
 
 class AuthorizationFragment : Fragment() {
     private lateinit var binding: AuthorizationFragmentBinding
     private lateinit var auth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = AuthorizationFragmentBinding.inflate(inflater, container, false)
-        FirebaseApp.initializeApp(activity?.baseContext!!)
+        //FirebaseApp.initializeApp(requireActivity())
         auth = Firebase.auth
 
         binding.createAccountButton.setOnClickListener {
-            if (
-                binding.emailEditText.text.toString().isEmpty() or
-                binding.passwordEditText.text.toString().isEmpty()
-            ) {
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+
+            if (email.isEmpty() or password.isEmpty()) {
                 toast("Field is empty")
                 return@setOnClickListener
             }
-            auth.createUserWithEmailAndPassword(
-                binding.emailEditText.text.toString(),
-                binding.passwordEditText.text.toString()
-            ).addOnCompleteListener { task ->
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     toast("Register success")
                     findNavController().navigate(R.id.action_authorizationFragment_to_settingsFragment)
@@ -53,6 +52,14 @@ class AuthorizationFragment : Fragment() {
         // other buttons
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            return
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
