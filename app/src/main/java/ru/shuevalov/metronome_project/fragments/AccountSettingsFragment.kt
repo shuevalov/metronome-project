@@ -50,20 +50,18 @@ class AccountSettingsFragment : Fragment() {
         }
 
         binding.logOut.setOnClickListener {
-            if (auth != null) {
-                auth.signOut()
-                toast("sign out")
-                findNavController().navigate(R.id.action_accountSettingsFragment_to_settingsFragment)
-            }
+            auth.signOut()
+            toast("sign out")
+            findNavController().navigate(R.id.action_accountSettingsFragment_to_settingsFragment)
         }
 
         binding.deleteAccount.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("are you sure you want to delete your account?")
-                .setNegativeButton("no") { dialog, which ->
+                .setTitle("delete account?")
+                .setNegativeButton("cancel") { dialog, which ->
                     dialog.cancel()
                 }
-                .setPositiveButton("yes") { dialog, which ->
+                .setPositiveButton("delete") { dialog, which ->
                     auth.currentUser?.delete()
                     toast("account is deleted")
                     findNavController().navigate(R.id.action_accountSettingsFragment_to_settingsFragment)

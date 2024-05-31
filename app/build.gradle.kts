@@ -1,5 +1,3 @@
-
-
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -13,7 +11,6 @@ android {
     room {
         schemaDirectory("$projectDir/schemas")
     }
-
 
     defaultConfig {
         applicationId = "ru.shuevalov.metronome_project"
@@ -50,7 +47,10 @@ android {
 dependencies {
     val preference_version = "1.2.1"
     val coroutines_version = "1.6.4"
-    val room_version = "2.6.1"
+
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.databinding.runtime)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -59,20 +59,27 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+
     // preference library
     implementation("androidx.preference:preference-ktx:$preference_version")
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-
+    // firebase
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
+
+    // tests
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+
+    androidTestImplementation("org.mockito:mockito-core:5.10.0")
+    androidTestImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+
+
 
 
 }

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="plus_buttons_side_dimen">32dp</dimen>
     <dimen name="plus_buttons_up_down_dimen">-16dp</dimen>
+    <dimen name="account_settings_dimen">16dp</dimen>
 </resources>

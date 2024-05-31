@@ -27,7 +27,7 @@
         android:defaultValue="1"/>
 
     <ListPreference
-        android:key="theme"
+        android:key="themes"
         android:title="@string/prefs_change_theme"
         app:allowDividerAbove="true"
         app:useSimpleSummaryProvider="true"

@@ -1,6 +1,8 @@
 package ru.shuevalov.metronome_project.fragments
 
+import android.app.Application
 import android.app.LocaleManager
+import android.content.res.Resources.Theme
 import android.os.Build
 import android.os.Bundle
 import android.os.LocaleList
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.LocaleManagerCompat
+import androidx.core.content.res.ResourcesCompat.ThemeCompat
 import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -22,6 +25,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.color.ThemeUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -32,19 +36,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private var signed = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onStart() {
         signed = Firebase.auth.currentUser != null
-
         if (signed) {
-            findPreference<Preference>("account")?.title =
-                Firebase.auth.currentUser?.displayName
+            val nickname = Firebase.auth.currentUser?.displayName!!
+            findPreference<Preference>("account")?.title = nickname.ifEmpty { "anon" }
         }
-
-        return super.onCreateView(inflater, container, savedInstanceState)
+        super.onStart()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,6 +88,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 else -> {
                     setLanguage("en")
                     Log.d("RRR", "nothing is chosen")
+                }
+            }
+            true
+        }
+
+        findPreference<ListPreference>("themes")?.setOnPreferenceChangeListener { preference, newValue ->
+            when (newValue) {
+                "1" -> {
+                    activity?.setTheme(androidx.transition.R.style.Base_Theme_AppCompat)
+                }
+                "2" -> {
+                    activity?.setTheme(R.style.AppTheme_Dark)
+                }
+                "3" -> {
+                    activity?.setTheme(R.style.AppTheme_Light)
                 }
             }
             true

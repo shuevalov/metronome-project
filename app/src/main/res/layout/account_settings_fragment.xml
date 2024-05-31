@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/change_nickname"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/account_settings_dimen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/log_out"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/account_settings_dimen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
@@ -31,13 +31,14 @@
 
     <TextView
         android:id="@+id/delete_account"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/account_settings_dimen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:textSize="20sp"
-        android:text="delete account">
+        android:text="delete account"
+        android:textColor="@color/md_theme_error">
     </TextView>
 
 </LinearLayout>

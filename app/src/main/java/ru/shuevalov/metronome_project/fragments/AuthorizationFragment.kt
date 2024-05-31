@@ -28,8 +28,10 @@ class AuthorizationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = AuthorizationFragmentBinding.inflate(inflater, container, false)
-        //FirebaseApp.initializeApp(requireActivity())
         auth = Firebase.auth
+
+        // when its getting from authentication fragment
+        if (auth.currentUser != null) activity?.onBackPressedDispatcher?.onBackPressed()
 
         binding.createAccountButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
@@ -42,24 +44,19 @@ class AuthorizationFragment : Fragment() {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     toast("Register success")
-                    findNavController().navigate(R.id.action_authorizationFragment_to_settingsFragment)
+                    activity?.onBackPressedDispatcher?.onBackPressed()
                 }
                 else
                     toast("Register failed")
             }
         }
+        binding.alreadyButton.setOnClickListener {
+            findNavController().navigate(R.id.action_authorizationFragment_to_authenticationFragment)
+        }
 
-        // other buttons
+        // google button
 
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            return
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,13 +68,8 @@ class AuthorizationFragment : Fragment() {
             setTitle(context.getString(R.string.sign_up))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-//                if (binding.emailEditText.isFocused) binding.emailEditText.clearFocus()
-//                else
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
-        }
-        binding.alreadyButton.setOnClickListener {
-            findNavController().navigate(R.id.action_authorizationFragment_to_authenticationFragment)
         }
     }
     private fun toast(text: String) {
