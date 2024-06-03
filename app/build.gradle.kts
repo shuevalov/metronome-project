@@ -76,8 +76,9 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.test:rules:1.4.0")
 
-    androidTestImplementation("org.mockito:mockito-core:5.10.0")
+    androidTestImplementation("org.mockito:mockito-core:5.11.0")
     androidTestImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    androidTestImplementation("net.bytebuddy:byte-buddy:1.14.11")
 
 
 
