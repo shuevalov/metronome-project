@@ -2,14 +2,14 @@
 <resources>
     <string-array name="languages_entries">
         <item>english</item>
-        <item>deutsch</item>
+<!--        <item>deutsch</item>-->
         <item>русский</item>
     </string-array>
 
     <string-array name="languages_values">
         <item>1</item>
         <item>2</item>
-        <item>3</item>
+<!--        <item>3</item>-->
     </string-array>
 
 
@@ -22,7 +22,7 @@
 
 
     <string-array name="themes_entries">
-        <item>vanilla theme</item>
+<!--        <item>vanilla theme</item> -->
         <item>dark theme</item>
         <item>light theme</item>
     </string-array>
@@ -30,6 +30,6 @@
     <string-array name="themes_values">
         <item>1</item>
         <item>2</item>
-        <item>3</item>
+<!--        <item>3</item>-->
     </string-array>
 </resources>

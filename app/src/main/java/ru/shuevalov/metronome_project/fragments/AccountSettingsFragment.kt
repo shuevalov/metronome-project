@@ -1,6 +1,5 @@
 package ru.shuevalov.metronome_project.fragments
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.shuevalov.metronome_project.R
@@ -52,7 +49,7 @@ class AccountSettingsFragment : Fragment() {
         binding.logOut.setOnClickListener {
             auth.signOut()
             toast("sign out")
-            findNavController().navigate(R.id.action_accountSettingsFragment_to_settingsFragment)
+            parentFragmentManager.popBackStackImmediate()
         }
 
         binding.deleteAccount.setOnClickListener {
@@ -64,7 +61,7 @@ class AccountSettingsFragment : Fragment() {
                 .setPositiveButton("delete") { dialog, which ->
                     auth.currentUser?.delete()
                     toast("account is deleted")
-                    findNavController().navigate(R.id.action_accountSettingsFragment_to_settingsFragment)
+                    parentFragmentManager.popBackStackImmediate()
                 }
                 .show()
         }
@@ -80,7 +77,7 @@ class AccountSettingsFragment : Fragment() {
             setTitle(context.getString(R.string.account_settings))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                activity?.onBackPressedDispatcher?.onBackPressed()
+                parentFragmentManager.popBackStackImmediate()
             }
         }
     }

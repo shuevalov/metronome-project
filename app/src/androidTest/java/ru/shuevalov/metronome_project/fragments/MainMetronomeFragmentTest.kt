@@ -8,6 +8,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withParentIndex
+import androidx.test.espresso.matcher.ViewMatchers.withResourceName
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -49,7 +50,9 @@ class MainMetronomeFragmentTest {
                 .commitNow()
         }
 
-        val bpmPicker = onView(withParent(withIndex(withId(binding.bpmPicker.id), 0)))
+        //val bpmPicker = onView(withParent(withIndex(withId(binding.bpmPicker.id), 0)))
+        //val bpmPicker = onView(withIndex(withResourceName("numberpicker_input"), 0))
+        val bpmPicker = onView(withResourceName("numberpicker_input"))
 
         // Act
         fragment.setCurrentBpm(250L)

@@ -2,6 +2,7 @@ package ru.shuevalov.metronome_project.fragments
 
 import android.app.Application
 import android.app.LocaleManager
+import android.content.Context
 import android.content.res.Resources.Theme
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +20,7 @@ import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.res.ResourcesCompat.ThemeCompat
 import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
@@ -36,13 +38,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private var signed = false
 
-    override fun onStart() {
+    override fun onResume() {
         signed = Firebase.auth.currentUser != null
         if (signed) {
             val nickname = Firebase.auth.currentUser?.displayName!!
             findPreference<Preference>("account")?.title = nickname.ifEmpty { "anon" }
         }
-        super.onStart()
+        super.onResume()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,12 +55,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setTitle(context.getString(R.string.settings))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                activity?.onBackPressedDispatcher?.onBackPressed()
+//                activity?.onBackPressedDispatcher?.onBackPressed()
+                parentFragmentManager.popBackStackImmediate()
             }
         }
     }
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.prefs, rootKey)
+        signed = Firebase.auth.currentUser != null
+        if (signed) {
+            val nickname = Firebase.auth.currentUser?.displayName!!
+            findPreference<Preference>("account")?.title = nickname.ifEmpty { "anon" }
+        } else {
+            findPreference<Preference>("account")?.title = "account"
+        }
 
         // account
         findPreference<Preference>("account")?.setOnPreferenceClickListener {
@@ -77,11 +87,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     setLanguage("en")
                     Log.d("RRR", "english is chosen")
                 }
+//                "2" -> {
+//                    setLanguage("de")
+//                    Log.d("RRR", "german is chosen")
+//                }
                 "2" -> {
-                    setLanguage("de")
-                    Log.d("RRR", "german is chosen")
-                }
-                "3" -> {
                     setLanguage("ru")
                     Log.d("RRR", "russian is chosen")
                 }
@@ -96,14 +106,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<ListPreference>("themes")?.setOnPreferenceChangeListener { preference, newValue ->
             when (newValue) {
                 "1" -> {
-                    activity?.setTheme(androidx.transition.R.style.Base_Theme_AppCompat)
+                    activity?.setTheme(R.style.AppTheme_Dark)
+                    recreateFragment()
                 }
                 "2" -> {
-                    activity?.setTheme(R.style.AppTheme_Dark)
-                }
-                "3" -> {
                     activity?.setTheme(R.style.AppTheme_Light)
+                    recreateFragment()
                 }
+//                "3" -> {
+//                    activity?.setTheme(R.style.AppTheme_Light)
+//                }
             }
             true
         }
@@ -116,5 +128,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         } else {
             AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(newLang))
         }
+    }
+    private fun recreateFragment() {
+        findNavController().navigate(
+            R.id.settingsFragment,
+            arguments,
+            NavOptions.Builder()
+                .setPopUpTo(R.id.settingsFragment, true)
+                .build()
+        )
     }
 }
