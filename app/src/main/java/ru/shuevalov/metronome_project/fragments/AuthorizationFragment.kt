@@ -5,17 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.shuevalov.metronome_project.R
-import ru.shuevalov.metronome_project.databinding.ActivityMainBinding
 import ru.shuevalov.metronome_project.databinding.AuthorizationFragmentBinding
 
 class AuthorizationFragment : Fragment() {
@@ -30,8 +27,6 @@ class AuthorizationFragment : Fragment() {
         binding = AuthorizationFragmentBinding.inflate(inflater, container, false)
         auth = Firebase.auth
 
-        // when its getting from authentication fragment
-        if (auth.currentUser != null) activity?.onBackPressedDispatcher?.onBackPressed()
 
         binding.createAccountButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
@@ -68,7 +63,7 @@ class AuthorizationFragment : Fragment() {
             setTitle(context.getString(R.string.sign_up))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                activity?.onBackPressedDispatcher?.onBackPressed()
+                parentFragmentManager.popBackStackImmediate()
             }
         }
     }

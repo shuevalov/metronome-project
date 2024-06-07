@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -38,7 +39,15 @@ class AuthenticationFragment : Fragment() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     toast("Sign in success")
-                    findNavController().navigate(R.id.action_authenticationFragment_to_settingsFragment)
+//                    findNavController().navigate(R.id.action_authenticationFragment_to_settingsFragment)
+//                    activity?.onBackPressedDispatcher?.dispatchOnBackStarted()
+                    findNavController().navigate(
+                        R.id.action_authenticationFragment_to_settingsFragment,
+                        arguments,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.settingsFragment, true)
+                            .build()
+                    )
                 }
                 else
                     toast("Sign in failed")
@@ -57,7 +66,7 @@ class AuthenticationFragment : Fragment() {
             setTitle(context.getString(R.string.sign_in))
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
-                activity?.onBackPressedDispatcher?.onBackPressed()
+                parentFragmentManager.popBackStackImmediate()
             }
         }
     }

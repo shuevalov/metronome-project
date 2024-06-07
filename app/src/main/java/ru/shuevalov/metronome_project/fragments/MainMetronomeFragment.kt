@@ -7,13 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
@@ -45,6 +43,7 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
 
         binding.run.setOnClickListener {
             if (!isTicking) {
+                binding.run.text = "STOP"
                 job = lifecycleScope.launch(Dispatchers.IO) {
                     isTicking = true
                     while (true) {
@@ -57,6 +56,7 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
                 }
             } else {
                 lifecycleScope.launch {
+                    binding.run.text = "RUN"
                     job?.cancelAndJoin()
                     isTicking = false
                 }
@@ -71,20 +71,6 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
             setOnValueChangedListener { picker, oldVal, newVal ->
                 setCurrentBpm(newVal.toLong())
             }
-            setOnLongClickListener {
-                val editText = EditText(activity)
-                MaterialAlertDialogBuilder(requireContext())
-                    .setView(editText)
-                    .setTitle("enter a BPM value")
-                    .setNegativeButton("cancel") { dialog, which ->
-                        dialog.cancel()
-                    }
-                    .setPositiveButton("ok") { dialog, which ->
-                        setCurrentBpm(editText.text.toString().toLong())
-                    }
-                    .show()
-                true
-            }
         }
         binding.minusOneButton.setOnClickListener {
             setCurrentBpm(bpm - 1)
@@ -97,6 +83,9 @@ class MainMetronomeFragment : Fragment(R.layout.main_metronome_fragment) {
         }
         binding.plusTenButton.setOnClickListener {
             setCurrentBpm(bpm + 10)
+        }
+        binding.tapButton.setOnClickListener {
+            tick.play()
         }
         //setBpm(60L)
         return binding.root
