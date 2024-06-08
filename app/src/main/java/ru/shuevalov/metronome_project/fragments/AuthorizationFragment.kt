@@ -27,7 +27,6 @@ class AuthorizationFragment : Fragment() {
         binding = AuthorizationFragmentBinding.inflate(inflater, container, false)
         auth = Firebase.auth
 
-
         binding.createAccountButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
@@ -39,7 +38,7 @@ class AuthorizationFragment : Fragment() {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     toast("Register success")
-                    activity?.onBackPressedDispatcher?.onBackPressed()
+                    parentFragmentManager.popBackStackImmediate()
                 }
                 else
                     toast("Register failed")
@@ -49,7 +48,7 @@ class AuthorizationFragment : Fragment() {
             findNavController().navigate(R.id.action_authorizationFragment_to_authenticationFragment)
         }
 
-        // google button
+        // TODO: google button
 
         return binding.root
     }

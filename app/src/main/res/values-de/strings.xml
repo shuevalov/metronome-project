@@ -23,4 +23,9 @@
     <string name="settings">settings</string>
     <string name="sign_up">sign up</string>
     <string name="account_settings">account settings</string>
+    <string name="anon">anon</string>
+    <string name="change_nickname">change nickname</string>
+    <string name="log_out">log out</string>
+    <string name="delete_account">delete account</string>
+    <string name="account">account</string>
 </resources>

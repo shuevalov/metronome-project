@@ -13,7 +13,7 @@
     <string name="prefs_change_theme">изменить тему</string>
     <string name="prefs_information">информация</string>
     <string name="create_an_account">создать аккаунт</string>
-    <string name="enter_your_email">введите свою электронную почту для регистрации</string>
+    <string name="enter_your_email">введите свою почту для регистрации</string>
     <string name="email">почта</string>
     <string name="password">пароль</string>
     <string name="or_continue_with">или авторизуйтесь через</string>
@@ -22,5 +22,10 @@
     <string name="enter_your_email_and_password">введите почту и пароль</string>
     <string name="settings">настройки</string>
     <string name="sign_up">создать аккаунт</string>
-    <string name="account_settings">account settings</string>
+    <string name="account_settings">настройки аккаунта</string>
+    <string name="anon">аноним</string>
+    <string name="change_nickname">изменить никнейм</string>
+    <string name="log_out">выйти из аккаунта</string>
+    <string name="delete_account">удалить аккаунт</string>
+    <string name="account">аккаунт</string>
 </resources>
